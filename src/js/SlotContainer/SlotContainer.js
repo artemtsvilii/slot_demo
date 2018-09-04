@@ -19,7 +19,8 @@ class SlotContainer extends React.Component {
             balance: 0,
             totalBet: 0,
             totalWin: 0,
-            symbols: []
+            symbols: [],
+            loading: true
         };
         this.setSlotState = this.setSlotState.bind(this);
         this.spin = this.spin.bind(this);
@@ -38,7 +39,8 @@ class SlotContainer extends React.Component {
     componentDidMount() {
         initializeSlotConfig().then((slotConfig) => {
             this.setState({
-                config: slotConfig
+                config: slotConfig,
+                loading: false
             });
         });
         initializeSlotState().then(this.setSlotState);
@@ -58,7 +60,9 @@ class SlotContainer extends React.Component {
                 <div>Balance: ${this.state.balance}</div>
                 <div>Total win: ${this.state.totalWin}</div>
                 <div>Total bet: ${this.state.totalBet}</div>
-                <Slot symbols={this.state.symbols}/>
+                {
+                    !this.state.loading ? <Slot symbols={this.state.symbols}/> : <div>Loading</div>
+                }
                 <button onClick={this.spin}>Spin</button>
                 <button onClick={this.reset}>Reset</button>
             </div>
