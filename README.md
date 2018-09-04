@@ -1,6 +1,6 @@
 # Install
 
-    `npm i`
+    npm i
 
 # Run application
 
